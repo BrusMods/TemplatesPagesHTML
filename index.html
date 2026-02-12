@@ -3,14 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Plantillas HTML Gratis - Esteban</title>
+    <title>Plantillas HTML Gratis - Brusmods</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
             --primary: #00aaff;
             --dark: #0f0f1a;
-            --light: #f8f9ff;
-            --shadow: 0 10px 30px rgba(0,170,255,0.15);
+            --shadow: 0 8px 25px rgba(0,170,255,0.2);
         }
         * { margin:0; padding:0; box-sizing:border-box; }
         body {
@@ -18,170 +17,239 @@
             background: linear-gradient(135deg, #0a0e17, #12182b);
             color: white;
             min-height: 100vh;
+            overflow-x: hidden;
         }
         header {
             background: rgba(15,15,26,0.85);
             backdrop-filter: blur(10px);
-            padding: 1.2rem 5%;
+            padding: 1rem 5%;
             position: sticky;
             top: 0;
-            z-index: 100;
+            z-index: 1000;
             display: flex;
             justify-content: space-between;
             align-items: center;
             border-bottom: 1px solid rgba(0,170,255,0.1);
         }
         .logo {
-            font-size: 1.8rem;
+            font-size: 1.6rem;
             font-weight: 700;
             color: var(--primary);
-            text-shadow: 0 0 15px rgba(0,170,255,0.5);
+        }
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 30px;
+            height: 22px;
+            cursor: pointer;
+            z-index: 1100;
+        }
+        .hamburger span {
+            width: 100%;
+            height: 3px;
+            background: var(--primary);
+            border-radius: 3px;
+            transition: all 0.4s ease;
+            box-shadow: 0 0 8px var(--primary);
+        }
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(7px, 7px);
+        }
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -7px);
+        }
+        .sidebar {
+            position: fixed;
+            top: 0;
+            right: -300px;
+            width: 300px;
+            height: 100%;
+            background: rgba(15,15,26,0.95);
+            backdrop-filter: blur(10px);
+            padding: 5rem 2rem 2rem;
+            transition: right 0.5s ease;
+            z-index: 999;
+            text-align: center;
+        }
+        .sidebar.active {
+            right: 0;
+        }
+        .sidebar h2 {
+            color: var(--primary);
+            margin-bottom: 2rem;
+            font-size: 1.8rem;
+            text-shadow: 0 0 15px var(--primary);
+        }
+        .sidebar-btn {
+            display: block;
+            width: 100%;
+            padding: 1rem;
+            margin: 1rem 0;
+            background: linear-gradient(45deg, #00aaff, #0077cc);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0,170,255,0.4);
+            transition: all 0.4s;
+        }
+        .sidebar-btn:hover {
+            transform: scale(1.08) translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,170,255,0.7);
         }
         .search-bar {
-            width: 45%;
-            max-width: 500px;
-            padding: 0.9rem 1.5rem;
+            width: 50%;
+            max-width: 400px;
+            padding: 0.7rem 1.2rem;
             border: 2px solid rgba(0,170,255,0.3);
             border-radius: 50px;
             background: rgba(255,255,255,0.05);
             color: white;
-            font-size: 1rem;
-            outline: none;
-            transition: all 0.3s;
-        }
-        .search-bar:focus {
-            border-color: var(--primary);
-            box-shadow: 0 0 20px rgba(0,170,255,0.4);
+            font-size: 0.95rem;
         }
         .main-title {
             text-align: center;
-            font-size: 3rem;
-            font-weight: 700;
-            margin: 4rem 0 1rem;
+            font-size: 2.5rem;
+            margin: 3rem 0 1rem;
             background: linear-gradient(90deg, #00aaff, #64c8ff);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
-        .explore {
-            text-align: center;
-            color: var(--primary);
-            font-size: 1.3rem;
-            margin-bottom: 3rem;
-            cursor: pointer;
-        }
-        .explore:hover { color: #64c8ff; }
         .template-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-            gap: 3.5rem;
-            padding: 0 5% 6rem;
-            max-width: 1600px;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2rem;
+            padding: 0 5% 4rem;
+            max-width: 1400px;
             margin: 0 auto;
         }
         .template-card {
             background: rgba(20,25,40,0.6);
-            border-radius: 24px;
+            border-radius: 18px;
             overflow: hidden;
             border: 1px solid rgba(0,170,255,0.15);
             box-shadow: var(--shadow);
-            transition: all 0.5s ease;
-            position: relative;
-            aspect-ratio: 9 / 16;
-            cursor: pointer;
+            transition: all 0.4s ease;
             display: flex;
             flex-direction: column;
+            height: 420px; /* Fijo para uniformidad */
         }
         .template-card:hover {
-            transform: translateY(-18px) scale(1.05);
-            box-shadow: 0 30px 70px rgba(0,170,255,0.35);
-            border-color: var(--primary);
+            transform: translateY(-12px);
+            box-shadow: 0 20px 50px rgba(0,170,255,0.3);
         }
         .image-container {
             flex: 1;
             width: 100%;
+            background: #0a0e17;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             overflow: hidden;
         }
         .image-container img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.8s ease;
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain; /* Muestra la imagen completa */
+            transition: transform 0.6s ease;
         }
         .template-card:hover .image-container img {
-            transform: scale(1.18);
+            transform: scale(1.08);
         }
         .info {
-            padding: 1.2rem;
+            padding: 1rem;
             text-align: center;
             background: rgba(0,0,0,0.3);
         }
         .template-name {
-            font-size: 1.3rem;
+            font-size: 1.1rem;
             font-weight: 600;
-            margin-bottom: 0.8rem;
+            margin-bottom: 0.6rem;
             color: #e0f7ff;
         }
         .download-btn {
             background: linear-gradient(45deg, #00aaff, #0077cc);
             color: white;
             border: none;
-            padding: 0.9rem 2rem;
+            padding: 0.8rem 1.8rem;
             border-radius: 50px;
-            font-size: 1.1rem;
+            font-size: 1rem;
             font-weight: 600;
             cursor: pointer;
-            box-shadow: 0 8px 25px rgba(0,170,255,0.4);
-            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(0,170,255,0.4);
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.04); }
         }
         .download-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 12px 35px rgba(0,170,255,0.6);
+            animation: none;
+            transform: scale(1.1);
+            box-shadow: 0 10px 30px rgba(0,170,255,0.7);
         }
-        /* Loader (sin cambios) */
-        #loader {
-            position: fixed;
-            inset: 0;
-            background: rgba(10,14,23,0.98);
-            display: none;
-            align-items: center;
-            justify-content: center;
-            z-index: 9999;
+        /* Loader descarga (cubo original) */
+        #loader-download {
+            position: fixed; inset: 0; background: rgba(10,14,23,0.98);
+            display: none; align-items:center; justify-content:center; z-index:9999;
             backdrop-filter: blur(12px);
         }
-        .loader-container { display: flex; flex-direction: column; align-items: center; gap: 2.5rem; }
-        .loader-text {
-            color: var(--primary);
+        /* Loader menú (rayo azul) */
+        #loader-menu {
+            position: fixed; inset: 0; background: rgba(10,14,23,0.98);
+            display: none; align-items:center; justify-content:center; z-index:9999;
+            backdrop-filter: blur(12px);
+            flex-direction: column;
+            gap: 2rem;
+        }
+        .bolt {
+            width: 0; height: 0;
+            border-left: 30px solid transparent;
+            border-right: 30px solid transparent;
+            border-bottom: 80px solid #00aaff;
+            position: relative;
+            animation: glowBolt 1.5s infinite alternate;
+            filter: drop-shadow(0 0 30px #00aaff);
+        }
+        .bolt::after {
+            content: '';
+            position: absolute;
+            top: 70px; left: -20px;
+            width: 0; height: 0;
+            border-left: 20px solid transparent;
+            border-right: 20px solid transparent;
+            border-top: 50px solid #00aaff;
+            animation: glowBolt 1.5s infinite alternate;
+        }
+        @keyframes glowBolt {
+            0% { filter: drop-shadow(0 0 20px #00aaff); opacity: 0.8; }
+            100% { filter: drop-shadow(0 0 50px #00aaff); opacity: 1; }
+        }
+        .loader-text-menu {
+            color: #00aaff;
+            font-size: 2rem;
             font-weight: 700;
-            font-size: 2.2rem;
-            letter-spacing: 4px;
-            text-shadow: 0 0 25px var(--primary);
-            animation: textGlow 2s infinite alternate;
+            letter-spacing: 3px;
+            text-shadow: 0 0 20px #00aaff;
+            animation: textChange 6s infinite;
         }
-        @keyframes textGlow { 0% { text-shadow: 0 0 15px var(--primary); } 100% { text-shadow: 0 0 40px var(--primary); } }
-        .spinner {
-            width: 120px; height: 120px;
-            position: relative; transform-style: preserve-3d; perspective: 800px;
-            animation: spin-smooth 6s infinite linear;
+        @keyframes textChange {
+            0%, 33% { content: "Cargando..."; }
+            33%, 66% { content: "Espera un momento..."; }
+            66%, 100% { content: "Ya casi..."; }
         }
-        .spinner > div {
-            position: absolute; inset: 0;
-            background: linear-gradient(45deg, rgba(0,170,255,0.85), rgba(100,200,255,0.85));
-            border: 4px solid var(--primary);
-            box-shadow: 0 0 40px var(--primary), inset 0 0 20px var(--primary);
-            backface-visibility: hidden;
-        }
-        .spinner > div:nth-child(1) { transform: rotateY(0deg) translateZ(60px); }
-        .spinner > div:nth-child(2) { transform: rotateY(90deg) translateZ(60px); }
-        .spinner > div:nth-child(3) { transform: rotateY(180deg) translateZ(60px); }
-        .spinner > div:nth-child(4) { transform: rotateY(-90deg) translateZ(60px); }
-        .spinner > div:nth-child(5) { transform: rotateX(90deg) translateZ(60px); }
-        .spinner > div:nth-child(6) { transform: rotateX(-90deg) translateZ(60px); }
-        @keyframes spin-smooth { from { transform: rotateX(0) rotateY(0); } to { transform: rotateX(360deg) rotateY(360deg); } }
     </style>
 </head>
 <body>
 
-    <div id="loader">
+    <!-- Loader para descargas (cubo) -->
+    <div id="loader-download">
         <div class="loader-container">
             <div class="spinner">
                 <div></div><div></div><div></div><div></div><div></div><div></div>
@@ -190,17 +258,35 @@
         </div>
     </div>
 
+    <!-- Loader para menú (rayo) -->
+    <div id="loader-menu">
+        <div class="bolt"></div>
+        <div class="loader-text-menu">Cargando...</div>
+    </div>
+
     <header>
         <div class="logo">Plantillas HTML Gratis</div>
-        <input type="text" class="search-bar" placeholder="Buscar plantillas...">
+        <input type="text" class="search-bar" placeholder="Buscar...">
+        <div class="hamburger" id="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
     </header>
+
+    <div class="sidebar" id="sidebar">
+        <h2>Creado por Brusmods</h2>
+        <!-- Botón de ejemplo -->
+        <button class="sidebar-btn" data-link="https://tudominio.com/contacto">Contacto / Soporte</button>
+        <!-- Para agregar más botones: copia la línea de arriba y cambia nombre y data-link -->
+        <!-- <button class="sidebar-btn" data-link="TU_LINK">Otro Botón Chido</button> -->
+    </div>
 
     <h1 class="main-title">Plantillas Web Increíbles</h1>
     <div class="explore">Explorar categorías ></div>
 
     <div class="template-grid">
-
-        <!-- Ejemplo 1: Cambia TODO lo que está en negritas -->
+        <!-- Tus tarjetas aquí (igual que antes, pero más pequeñas y con contain) -->
         <div class="template-card">
             <div class="image-container">
                 <img src="1.png" alt="Vista previa logo-pro">
@@ -211,40 +297,50 @@
             </div>
         </div>
 
-        <!-- Ejemplo 2 -->
         <div class="template-card">
             <div class="image-container">
-                <img src="https://i.ibb.co/OTRO-LINK/blog-moderno.jpg" alt="Vista previa blog-moderno">
+                <img src="xddd" alt="Vista previa logo-pro">
             </div>
             <div class="info">
-                <div class="template-name">blog-moderno.html</div>
-                <button class="download-btn" data-link="https://tudominio.com/descargas/blog-moderno.zip">Probar y Descargar</button>
+                <div class="template-name">logo-pro.png</div>
+                <button class="download-btn" data-link="https://tudominio.com/descargas/logo-pro.zip">Probar y Descargar</button>
             </div>
         </div>
+        
 
-        <!-- Copia este bloque para agregar más -->
-        <!-- 
-        <div class="template-card">
-            <div class="image-container">
-                <img src="TU_URL_DE_IMAGEN_AQUI" alt="Vista previa NOMBRE">
-            </div>
-            <div class="info">
-                <div class="template-name">NOMBRE-DE-TU-PLANTILLA.png</div>
-                <button class="download-btn" data-link="TU-ENLACE-DE-DESCARGA">Probar y Descargar</button>
-            </div>
-        </div>
-        -->
-
+        <!-- Agrega más tarjetas copiando el bloque -->
     </div>
 
     <script>
+        // Menú hamburguesa
+        const hamburger = document.getElementById('hamburger');
+        const sidebar = document.getElementById('sidebar');
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            sidebar.classList.toggle('active');
+        });
+
+        // Loader para botones de descarga (cubo)
         document.querySelectorAll('.download-btn').forEach(btn => {
-            btn.addEventListener('click', function() {
+            btn.addEventListener('click', function(e) {
+                e.preventDefault();
                 const link = this.getAttribute('data-link');
-                document.getElementById('loader').style.display = 'flex';
+                document.getElementById('loader-download').style.display = 'flex';
                 setTimeout(() => {
                     window.location.href = link;
                 }, 2500);
+            });
+        });
+
+        // Loader para botones del menú (rayo)
+        document.querySelectorAll('.sidebar-btn').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.preventDefault();
+                const link = this.getAttribute('data-link');
+                document.getElementById('loader-menu').style.display = 'flex';
+                setTimeout(() => {
+                    window.location.href = link;
+                }, 4500); // Más tiempo para ver la animación del texto
             });
         });
     </script>
